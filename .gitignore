@@ -1,0 +1,12 @@
+# Ignore environment secret files anywhere in the project
+.env
+**/ .env
+
+# Ignore node_modules folders inside both backend and frontend
+backend/node_modules/
+frontend/node_modules/
+
+# Ignore the compiled JavaScript build folders
+backend/dist/
+frontend/dist/
+frontend/build/
