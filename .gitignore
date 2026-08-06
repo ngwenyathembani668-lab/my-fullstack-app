@@ -1,6 +1,6 @@
 # Ignore environment secret files anywhere in the project
 .env
-**/ .env
+**/.env
 
 # Ignore node_modules folders inside both backend and frontend
 backend/node_modules/
