@@ -8,7 +8,7 @@ const app = express();
 const port = process.env.PORT || 5000;
 
 // Connecting to MangoDB!
-mongoose.connect(process.env.MONGODB_URI || "")
+mongoose.connect(process.env.MONGODB_URI as string) 
     .then(() => {
         console.log("Connected to MongoDB successfully!");
 
