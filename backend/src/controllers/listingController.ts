@@ -18,24 +18,23 @@ export const getAllAccommodations = async (req: Request, res: Response): Promise
   }
 };
 
-/**
- * FEATURE 2: Fetch a Single Listing by ID
- * Targets specific ID parameter tokens to feed your dynamic frontend (listing-details) page.
- */
+
+// this function bellow allows you to fetch a single listing by its Id
 export const getAccommodationById = async (req: Request, res: Response): Promise<void> => {
   try {
     const { id } = req.params;
 
-    // Use Mongoose built-in engine to pinpoint the exact document
+    // Use mongoose to fetch the exact document
     const listing = await Accommodation.findById(id);
 
-    // Strict Validation: If the ID format is correct but doesn't exist in the DB
+    // if the id format is valid but the listing is not found
+    // in the database, the it will return a 404 error
     if (!listing) {
       res.status(404).json({ message: "Accommodation listing not found" });
       return;
     }
 
-    // Success: Returns the precise object containing review templates and fees
+    // success: returns the correct object containing review templates and the listing fees
     res.status(200).json(listing);
   } catch (error) {
     console.error("Error inside getAccommodationById:", error);

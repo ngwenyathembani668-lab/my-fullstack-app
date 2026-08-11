@@ -1,6 +1,7 @@
 import express from "express";
 import mongoose from "mongoose";
 import dotenv from "dotenv";
+import listingRouter from './routes/listingRoutes';
 
 dotenv.config();
 
@@ -24,3 +25,7 @@ mongoose.connect(process.env.MONGODB_URI as string)
 app.get('/', (req, res) => {
     res.send('Server is running!');
 });
+
+
+// Anything sent to '/api/accommodations' will be handled by the listingRouter file!
+app.use('/api/accommodations', listingRouter);
