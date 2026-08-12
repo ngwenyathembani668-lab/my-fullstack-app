@@ -2,6 +2,7 @@ import express from "express";
 import mongoose from "mongoose";
 import dotenv from "dotenv";
 import listingRouter from './routes/listingRoutes';
+import authRouter from './routes/authRoutes';
 
 dotenv.config();
 
@@ -27,5 +28,11 @@ app.get('/', (req, res) => {
 });
 
 
+// Parse incoming JSON request bodies
+app.use(express.json());
+
 // Anything sent to '/api/accommodations' will be handled by the listingRouter file!
 app.use('/api/accommodations', listingRouter);
+
+// Anything sent to '/api/auth' will be handled by the authRouter file!
+app.use('/api/auth', authRouter);

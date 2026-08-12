@@ -1,24 +1,23 @@
 import { Schema, model, Document } from "mongoose";
 import bcrypt from "bcryptjs";
 
-// Role definition: literal union of permitted access levels.
-// Standard accounts initialize with a default fallback role of ['visitor'].
+// This creates a custom type for user roles so a user can only be either a visitor or a host
+// Exporting it lets us reuse this specific rule across other files to keep our data consistent!
 export type UserRole = "visitor" | "host";
 
-// The IUser interface extends Mongoose's Document framework so every hydrated
-// document carries the full document lifecycle methods (save, isModified, etc.)
+// Defines the User structure for my database
 export interface IUser extends Document {
   name: string;
   email: string;
   password: string;
-  avatarUrl?: string;
-  role: UserRole[];
-  // Custom schema method for downstream plaintext-vs-hash match validations
+  avatarUrl?: string; // Optional profile picture link
+  role: UserRole[]; // Array of roles assigned to the user
+
+  // Checks if the entered password is correct.
   comparePassword(candidatePassword: string): Promise<boolean>;
 }
 
-// Formal RegEx template verifying the layout health of an email address:
-// supports names like "user.name+tag@sub.domain.com"
+// Simple regex to check if an email format is valid
 const EMAIL_REGEX = /^[\w.+-]+@[\w-]+\.[\w.-]+$/;
 
 const UserSchema = new Schema<IUser>(
@@ -56,17 +55,16 @@ const UserSchema = new Schema<IUser>(
   }
 );
 
-// Pre-save middleware: salts and hashes the password before any document
-// hits the database. Only re-hashes when the password field actually changed.
+// Hashes the password automatically right before saving a user profile
 UserSchema.pre<IUser>("save", async function () {
   if (!this.isModified("password")) return;
 
+  // Generate a secure salt and turn the plain text password into a hash
   const salt = await bcrypt.genSalt(10);
   this.password = await bcrypt.hash(this.password, salt);
 });
 
-// Custom instance method: compares a candidate plaintext password against the
-// stored bcrypt hash for downstream login/match validations.
+// helper function to check if the user passsword matches the database hash
 UserSchema.methods.comparePassword = async function (
   candidatePassword: string
 ): Promise<boolean> {
