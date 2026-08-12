@@ -4,6 +4,7 @@ import {
   loginUser,
   becomeHost,
 } from "../controllers/authController";
+import { verifyToken } from "../middleware/auth.js";
 
 const router: Router = Router();
 
@@ -14,6 +15,7 @@ router.post("/register", registerUser);
 router.post("/login", loginUser);
 
 // Upgrades a visitor to also hold the host role
-router.post("/become-a-host", becomeHost);
+// protected: only logged-in visitors can call the role-switching pipeline
+router.post("/become-a-host", verifyToken, becomeHost);
 
 export default router;

@@ -3,6 +3,7 @@ import mongoose from "mongoose";
 import dotenv from "dotenv";
 import listingRouter from './routes/listingRoutes';
 import authRouter from './routes/authRoutes';
+import reservationRouter from './routes/reservationRoutes.js';
 
 dotenv.config();
 
@@ -36,3 +37,6 @@ app.use('/api/accommodations', listingRouter);
 
 // Anything sent to '/api/auth' will be handled by the authRouter file!
 app.use('/api/auth', authRouter);
+
+// Anything sent to '/api/reservations' will be handled by the reservationRouter file!
+app.use('/api/reservations', reservationRouter);
