@@ -2,9 +2,7 @@ import { Router } from "express";
 import {
   registerUser,
   loginUser,
-  becomeHost,
 } from "../controllers/authController";
-import { verifyToken } from "../middleware/auth";
 import { validate, registerValidation, loginValidation } from "../middleware/validation";
 
 const router: Router = Router();
@@ -14,9 +12,5 @@ router.post("/register", validate(registerValidation), registerUser);
 
 // Logs an existing user into the application
 router.post("/login", validate(loginValidation), loginUser);
-
-// Upgrades a visitor to also hold the host role
-// protected: only logged-in visitors can call the role-switching pipeline
-router.post("/become-a-host", verifyToken, becomeHost);
 
 export default router;

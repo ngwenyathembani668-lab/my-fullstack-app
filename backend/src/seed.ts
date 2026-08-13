@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 import dotenv from "dotenv";
-import { Accommodation } from "./models/Accomodation";
+import { Accommodation } from "./models/Accommodation";
 
 dotenv.config();
 
@@ -190,9 +190,6 @@ const accommodations = [
 
 async function seedDatabase(): Promise<void> {
   try {
-    // Load environment variables from the .env file
-    dotenv.config();
-
     const mongoUri = process.env.MONGODB_URI;
     if (!mongoUri) {
       throw new Error("MONGODB_URI is not defined in the environment variables.");

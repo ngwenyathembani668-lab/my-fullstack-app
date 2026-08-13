@@ -102,11 +102,11 @@ export const loginUser = async (req: Request, res: Response): Promise<void> => {
 // upgrades a visitor account to also have the host role
 export const becomeHost = async (req: Request, res: Response): Promise<void> => {
   try {
-    
-    const { userId } = req.body;
+    // always use the id from the verified token, never trust the body
+    const userId = req.user?.id;
 
     if (!userId) {
-      res.status(400).json({ message: "User ID is required" });
+      res.status(401).json({ message: "Access Denied: Missing or malformed authorization token" });
       return;
     }
 

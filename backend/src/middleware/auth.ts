@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from "express";
 import jwt, { TokenExpiredError } from "jsonwebtoken";
-import { UserRole } from "../models/User.js";
+import { UserRole } from "../models/User";
 
 // the exact shape stored inside a signed JWT
 export interface JwtPayload {
@@ -57,19 +57,14 @@ export const requireHost = (
   res: Response,
   next: NextFunction
 ): void => {
-  try {
-    // req.user is guaranteed to exist because verifyToken runs first
-    const roles = req.user?.roles ?? [];
+  // req.user is guaranteed to exist because verifyToken runs first
+  const roles = req.user?.roles ?? [];
 
-    // Denies access if the user does not have the 'host' role
-    if (!roles.includes("host")) {
-      res.status(403).json({ message: "Access Denied: Host privileges required" });
-      return;
-    }
-
-    next();
-  } catch (error) {
-    // fail gracefully with a 403 if anything unexpected happens
+  // Denies access if the user does not have the 'host' role
+  if (!roles.includes("host")) {
     res.status(403).json({ message: "Access Denied: Host privileges required" });
+    return;
   }
+
+  next();
 };

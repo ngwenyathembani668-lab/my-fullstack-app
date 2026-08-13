@@ -1,5 +1,12 @@
 import { Router } from 'express';
-import { getAllAccommodations, getAccommodationById } from '../controllers/listingController';
+import {
+  getAllAccommodations,
+  getAccommodationById,
+  createAccommodation,
+  deleteAccommodation,
+} from '../controllers/listingController';
+import { verifyToken, requireHost } from '../middleware/auth';
+import { validate, createAccommodationValidation } from '../middleware/validation';
 
 const router: Router = Router();
 
@@ -8,5 +15,11 @@ router.get('/', getAllAccommodations);
 
 // This finds one specific accommodation using the unique ID passed in the URL
 router.get('/:id', getAccommodationById);
+
+// Protected: lets a host create a brand new listing
+router.post('/', verifyToken, requireHost, validate(createAccommodationValidation), createAccommodation);
+
+// Protected: lets a host delete their own listing
+router.delete('/:id', verifyToken, requireHost, deleteAccommodation);
 
 export default router;

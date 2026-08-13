@@ -10,6 +10,9 @@
     "strict": true,                              /* Enable all strict type-checking options */
     "skipLibCheck": true                         /* Skip type checking of declaration files */
   },
+  "ts-node": {
+    "files": true                                /* Load all files from include so global types like express.d.ts are picked up */
+  },
   "include": ["src/**/*"],
   "exclude": ["node_modules", "dist"]
 }
