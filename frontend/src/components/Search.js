@@ -32,7 +32,7 @@ const Search = () => {
                         px-6
                     '
                 >
-                    Anywhere
+                    Select Location
                 </div>
                 <div
                     className='
@@ -46,7 +46,7 @@ const Search = () => {
                         text-center
                     '
                 >
-                    Any week
+                    Pick date
                 </div>
                 <div
                     className='
