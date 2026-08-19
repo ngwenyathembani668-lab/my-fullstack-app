@@ -6,8 +6,17 @@ import { User } from "../models/User";
 // exist in this airbnb clone
 export const getAllAccommodations = async (req: Request, res: Response): Promise<void> => {
   try {
-    // Queries the entire collection from your cluster
-    const listings = await Accommodation.find({});
+    // Extract the optional location query parameter (?location=Paris)
+    const { location } = req.query;
+
+    // When a city is supplied, filter the collection case-insensitively.
+    // Otherwise return the full array of listings.
+    const filter = location
+      ? { location: { $regex: new RegExp(`^${location}$`, 'i') } }
+      : {};
+
+    // Queries the entire collection (or the filtered subset) from your cluster
+    const listings = await Accommodation.find(filter);
 
     // Send a 200 OK status containing your database records array
     res.status(200).json(listings);
