@@ -1,5 +1,6 @@
 import React from 'react';
 import Container from './Container';
+import LoginModal from './LoginModal';
 
 const Header = () => {
   return (
@@ -12,9 +13,7 @@ const Header = () => {
         {/* <p>hitman</p> */}
         <Container />
       </div>
-
-
-
+      <LoginModal />
     </div>
   )
 }
