@@ -12,9 +12,6 @@ export const errorHandler = (
   res: Response,
   next: NextFunction
 ): void => {
-  // log the real error on the server side only
-  console.error(err.message);
-
   // send a safe generic message to the client
   res.status(err.status || 500).json({ message: err.message || "Server error" });
 };

@@ -3,6 +3,7 @@ import {
   getAllAccommodations,
   getAccommodationById,
   createAccommodation,
+  updateAccommodation,
   deleteAccommodation,
 } from '../controllers/listingController';
 import { verifyToken, requireHost } from '../middleware/auth';
@@ -18,6 +19,9 @@ router.get('/:id', getAccommodationById);
 
 // Protected: lets a host create a brand new listing
 router.post('/', verifyToken, requireHost, validate(createAccommodationValidation), createAccommodation);
+
+// Protected: lets a host update their own listing
+router.put('/:id', verifyToken, requireHost, validate(createAccommodationValidation), updateAccommodation);
 
 // Protected: lets a host delete their own listing
 router.delete('/:id', verifyToken, requireHost, deleteAccommodation);

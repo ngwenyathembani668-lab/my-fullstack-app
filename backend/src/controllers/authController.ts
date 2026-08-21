@@ -59,7 +59,6 @@ export const registerUser = async (req: Request, res: Response): Promise<void> =
       user: buildUserProfile(user),
     });
   } catch (error) {
-    console.error("Error inside registerUser:", error);
     res.status(500).json({ message: "Server error" });
   }
 };
@@ -94,7 +93,6 @@ export const loginUser = async (req: Request, res: Response): Promise<void> => {
       user: buildUserProfile(user),
     });
   } catch (error) {
-    console.error("Error inside loginUser:", error);
     res.status(500).json({ message: "Server error" });
   }
 };
@@ -130,7 +128,6 @@ export const becomeHost = async (req: Request, res: Response): Promise<void> => 
       user: buildUserProfile(user),
     });
   } catch (error) {
-    console.error("Error inside becomeHost:", error);
     res.status(500).json({ message: "Server error" });
   }
 };

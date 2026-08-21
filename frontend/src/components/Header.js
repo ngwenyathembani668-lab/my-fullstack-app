@@ -10,7 +10,6 @@ const Header = () => {
       py-4
       border-b-[1px]'
       >
-        {/* <p>hitman</p> */}
         <Container />
       </div>
       <LoginModal />

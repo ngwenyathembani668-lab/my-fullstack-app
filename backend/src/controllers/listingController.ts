@@ -21,7 +21,6 @@ export const getAllAccommodations = async (req: Request, res: Response): Promise
     // Send a 200 OK status containing your database records array
     res.status(200).json(listings);
   } catch (error) {
-    console.error("Error inside getAllAccommodations:", error);
     res.status(500).json({ message: "Server error failed to retrieve accommodations" });
   }
 };
@@ -44,8 +43,6 @@ export const getAccommodationById = async (req: Request, res: Response): Promise
     // success: returns the correct object containing review templates and the listing fees
     res.status(200).json(listing);
   } catch (error) {
-    console.error("Error inside getAccommodationById:", error);
-
     // Catch-all block handles bad syntax IDs gracefully without crashing the app context
     res.status(400).json({ message: "Invalid ID format or internal server failure" });
   }
@@ -81,7 +78,6 @@ export const createAccommodation = async (req: Request, res: Response): Promise<
     // 201 created with the full listing object
     res.status(201).json(newListing);
   } catch (error) {
-    console.error("Error inside createAccommodation:", error);
     res.status(500).json({ message: "Server error" });
   }
 };
@@ -115,7 +111,55 @@ export const deleteAccommodation = async (req: Request, res: Response): Promise<
 
     res.status(200).json({ message: "Accommodation deleted successfully" });
   } catch (error) {
-    console.error("Error inside deleteAccommodation:", error);
+    // Catch-all block handles bad syntax IDs gracefully without crashing the app context
+    res.status(400).json({ message: "Invalid ID format or internal server failure" });
+  }
+};
+
+// this function lets a host update their own listing only
+export const updateAccommodation = async (req: Request, res: Response): Promise<void> => {
+  try {
+    const { id } = req.params;
+    const userId = req.user?.id;
+
+    // Denies access if the user ID could not be found or extracted
+    if (!userId) {
+      res.status(401).json({ message: "Access Denied: Missing or malformed authorization token" });
+      return;
+    }
+
+    // find the listing first so we can check who owns it
+    const listing = await Accommodation.findById(id);
+    if (!listing) {
+      res.status(404).json({ message: "Accommodation listing not found" });
+      return;
+    }
+
+    // ownership check - only the host who created it can update it
+    if (listing.host_id !== userId) {
+      res.status(403).json({ message: "Access Denied: You can only edit your own listings" });
+      return;
+    }
+
+    // do not allow the host_id or host name to be changed via update
+    const updateData = { ...req.body };
+    delete updateData.host_id;
+    delete updateData.host;
+
+    // update the listing and run validators to ensure schema compliance
+    const updatedListing = await Accommodation.findByIdAndUpdate(id, updateData, {
+      new: true,
+      runValidators: true,
+    });
+
+    // 200 OK with the updated listing object
+    res.status(200).json(updatedListing);
+  } catch (error: any) {
+    // Handle validation errors specifically
+    if (error.name === 'ValidationError') {
+      res.status(400).json({ message: "Validation failed: " + error.message });
+      return;
+    }
 
     // Catch-all block handles bad syntax IDs gracefully without crashing the app context
     res.status(400).json({ message: "Invalid ID format or internal server failure" });

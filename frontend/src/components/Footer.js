@@ -13,8 +13,11 @@ const Footer = () => {
             <div className='
         flex
         flex-col
-        pr-16
-        pl-16
+        px-4
+        sm:px-8
+        md:px-12
+        lg:pr-16
+        lg:pl-16
         mb-[35px]
     '>
 
@@ -27,9 +30,12 @@ const Footer = () => {
 
                 <div className='
                 flex
+                flex-wrap
                 mt-[20px]
-                gap-[20px]
-                text-[0.7rem]
+                gap-[10px]
+                sm:gap-[20px]
+                text-[0.65rem]
+                sm:text-[0.7rem]
                 border-b-2
                 border-b-[#555]
                 pb-[5px]
@@ -44,7 +50,8 @@ const Footer = () => {
 
                 <div className='
                 grid
-                grid-cols-4
+                grid-cols-2
+                sm:grid-cols-4
                 mt-[35px]
             '>
 

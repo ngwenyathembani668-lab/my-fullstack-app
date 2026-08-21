@@ -67,7 +67,6 @@ export const createReservation = async (req: Request, res: Response): Promise<vo
 
     res.status(201).json(newReservation);
   } catch (error) {
-    console.error("Error inside createReservation:", error);
     res.status(500).json({ message: "Server error" });
   }
 };
@@ -88,7 +87,6 @@ export const getUserReservations = async (req: Request, res: Response): Promise<
 
     res.status(200).json(reservations);
   } catch (error) {
-    console.error("Error inside getUserReservations:", error);
     res.status(500).json({ message: "Server error" });
   }
 };
@@ -112,7 +110,6 @@ export const getHostReservations = async (req: Request, res: Response): Promise<
 
     res.status(200).json(reservations);
   } catch (error) {
-    console.error("Error inside getHostReservations:", error);
     res.status(500).json({ message: "Server error" });
   }
 };
@@ -149,8 +146,6 @@ export const deleteReservation = async (req: Request, res: Response): Promise<vo
 
     res.status(200).json({ message: "Reservation cancelled successfully" });
   } catch (error) {
-    console.error("Error inside deleteReservation:", error);
-
     // Catch-all block handles bad syntax IDs gracefully without crashing the app context
     res.status(400).json({ message: "Invalid ID format or internal server failure" });
   }

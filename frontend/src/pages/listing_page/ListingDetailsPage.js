@@ -293,9 +293,9 @@ const ListingDetailsPage = () => {
                             </p>
                         </div>
 
-                        <div className='flex flex-col lg:flex-row w-full gap-6 lg:gap-[2.5rem] items-start'>
+                        <div className='flex flex-col lg:flex-row w-full gap-6 lg:gap-[2.5rem] items-start lg:items-center '>
 
-                            <div className='flex flex-col gap-[10px] pb-[1.5rem] border-b-[2px] border-b-[#555] w-full lg:w-[79%] '>
+                            <div className='flex flex-col gap-[10px] pb-[1.5rem] border-b-[2px] border-b-[#555] w-full lg:w-[60%] justify-start '>
 
                                 <div>
                                     <div className='
@@ -374,7 +374,7 @@ const ListingDetailsPage = () => {
                             </div>
 
                             {/* price calculator */}
-                            <div className="w-full lg:flex-1">
+                            <div className="w-full sm:w-[80%] lg:w-[40%] lg:flex-1 mx-auto sm:mx-0">
                                 <div className="calc-container w-full rounded-xl border border-gray-200 bg-white p-5 shadow-md sm:p-6">
                                     <div className="flex items-baseline gap-1">
                                         <h4 className="dynamic-price-in-dolars text-2xl font-semibold text-gray-900">
@@ -488,7 +488,7 @@ const ListingDetailsPage = () => {
 
                             <div className=' pb-[20px] border-b-[#555] border-b-[2px] '>
                                 <p className=' text-[1.1rem] font-semibold '>Where You'll Sleep</p>
-                                <img className=' w-[280px] h-[200px] rounded-[10px] object-cover mt-[25px] ' src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRU_Y4IYuN1dSRUlTmnXPVUYWQmrw-1kTT1XINBPAkmoA&s=10' alt='Spacious bedroom with comfotable bed' />
+                                <img className=' w-full sm:w-[280px] h-auto sm:h-[200px] rounded-[10px] object-cover mt-[25px] ' src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRU_Y4IYuN1dSRUlTmnXPVUYWQmrw-1kTT1XINBPAkmoA&s=10' alt='Spacious bedroom with comfotable bed' />
                                 <p className=' text-[#555] mt-[8px] '>Spacious bedroom with comfotable bed</p>
                                 <p className=' text-[#555] '>Total Bedrooms: 2</p>
                             </div>
@@ -556,48 +556,52 @@ const ListingDetailsPage = () => {
                         <div className=' w-full lg:w-[79%] pb-[60px] border-b-[#555] border-b-2 mb-[80px] '>
 
                             <p className=' text-[1.4rem] font-semibold '>7 Nights in New York</p>
-                            <div className='flex flex-col sm:flex-row gap-6 sm:gap-0'>
+                            <div className='flex flex-col sm:flex-row gap-4 sm:gap-6 w-full lg:w-[79%]'>
 
-                                <div className=' flex flex-col '>
+                                <div className=' flex flex-col flex-1 '>
 
                                     <p className=' text-[0.98rem] font-semibold '>Check-in</p>
                                     <div className=' booking-date '>
-                                        <span className=' text-[0.8rem] text-[#555] '>{bookingRangeText}</span>
+                                        <span className=' text-[0.75rem] sm:text-[0.8rem] text-[#555] break-words'>{bookingRangeText}</span>
                                     </div>
                                     {/* add the calendar here! — Calendar A: independent of price calculator */}
-                                    <Calendar
-                                        onChange={handleBookingCheckIn}
-                                        value={bookingCheckIn}
-                                        minDate={todayStart}
-                                        tileDisabled={({ date }) => date < todayStart}
-                                        next2Label={null}
-                                        prev2Label={null}
-                                    />
+                                    <div className='mt-2 overflow-x-auto'>
+                                        <Calendar
+                                            onChange={handleBookingCheckIn}
+                                            value={bookingCheckIn}
+                                            minDate={todayStart}
+                                            tileDisabled={({ date }) => date < todayStart}
+                                            next2Label={null}
+                                            prev2Label={null}
+                                        />
+                                    </div>
 
                                 </div>
-                                <div className=' flex flex-col '>
+                                <div className=' flex flex-col flex-1 '>
 
                                     <p className=' text-[0.98rem] font-semibold '>Check-out</p>
                                     <div className=' booking-date '>
-                                        <span className=' text-[0.8rem] text-[#555] '>{bookingRangeText}</span>
+                                        <span className=' text-[0.75rem] sm:text-[0.8rem] text-[#555] break-words'>{bookingRangeText}</span>
                                     </div>
                                     {/* add the calendar here! — Calendar B: independent of price calculator */}
-                                    <Calendar
-                                        onChange={handleBookingCheckOut}
-                                        value={bookingCheckOut}
-                                        minDate={
-                                            bookingCheckIn
-                                                ? addDays(startOfDay(bookingCheckIn), 1)
-                                                : todayStart
-                                        }
-                                        tileDisabled={({ date }) =>
-                                            bookingCheckIn
-                                                ? date <= startOfDay(bookingCheckIn)
-                                                : date < todayStart
-                                        }
-                                        next2Label={null}
-                                        prev2Label={null}
-                                    />
+                                    <div className='mt-2 overflow-x-auto'>
+                                        <Calendar
+                                            onChange={handleBookingCheckOut}
+                                            value={bookingCheckOut}
+                                            minDate={
+                                                bookingCheckIn
+                                                    ? addDays(startOfDay(bookingCheckIn), 1)
+                                                    : todayStart
+                                            }
+                                            tileDisabled={({ date }) =>
+                                                bookingCheckIn
+                                                    ? date <= startOfDay(bookingCheckIn)
+                                                    : date < todayStart
+                                            }
+                                            next2Label={null}
+                                            prev2Label={null}
+                                        />
+                                    </div>
 
                                 </div>
 
