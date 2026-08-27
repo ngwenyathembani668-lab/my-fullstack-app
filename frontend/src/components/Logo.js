@@ -1,9 +1,10 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 import logo from '../assets/logo.png'
 
 const Logo = () => {
   return (
-    <div>
+    <Link to='/' aria-label='Go to home page'>
       <img
         className='hidden md:block cursor-pointer'
         alt='Logo'
@@ -11,7 +12,7 @@ const Logo = () => {
         width='100'
         src={logo}
       />
-    </div>
+    </Link>
   )
 }
 

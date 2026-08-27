@@ -1,3 +1,93 @@
+/* Listing gallery */
+.listing-gallery {
+    display: grid;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    gap: 0.5rem;
+}
+
+.listing-gallery--with-alternatives {
+    grid-template-columns: minmax(0, 3fr) minmax(0, 2fr);
+    height: clamp(18rem, 48vw, 34rem);
+}
+
+.listing-gallery__primary,
+.listing-gallery__alternative {
+    min-width: 0;
+    min-height: 0;
+    overflow: hidden;
+    background: #f3f4f6;
+}
+
+.listing-gallery__primary {
+    border-radius: 1rem 0 0 1rem;
+}
+
+.listing-gallery__alternatives {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.5rem;
+    min-width: 0;
+    min-height: 0;
+}
+
+.listing-gallery__alternative:nth-child(2) {
+    border-radius: 0 1rem 0 0;
+}
+
+.listing-gallery__alternative:nth-child(4),
+.listing-gallery__alternative:last-child {
+    border-radius: 0 0 1rem 0;
+}
+
+.listing-gallery img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.listing-gallery__empty {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    color: #9ca3af;
+    font-size: 0.875rem;
+}
+
+@media (max-width: 767px) {
+    .listing-gallery--with-alternatives {
+        grid-template-columns: 1fr;
+        height: auto;
+    }
+
+    .listing-gallery__primary {
+        aspect-ratio: 4 / 3;
+        border-radius: 1rem 1rem 0 0;
+    }
+
+    .listing-gallery__alternatives {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        aspect-ratio: 2 / 1;
+    }
+
+    .listing-gallery__alternative:nth-child(2),
+    .listing-gallery__alternative:nth-child(4),
+    .listing-gallery__alternative:last-child {
+        border-radius: 0;
+    }
+
+    .listing-gallery__alternative:nth-child(3) {
+        border-radius: 0 0 0 1rem;
+    }
+
+    .listing-gallery__alternative:nth-child(4):last-child {
+        border-radius: 0 0 1rem 0;
+    }
+}
+
 /* ============================================================
    Phase 3 — Booking engine responsive overrides (react-calendar)
    ============================================================ */

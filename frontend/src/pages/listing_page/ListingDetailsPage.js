@@ -121,7 +121,10 @@ const ListingDetailsPage = () => {
         };
     }, [id]);
 
-    const primaryImage = listing?.images && listing.images.length > 0 ? listing.images[0] : '';
+    const listingImages = Array.isArray(listing?.images)
+        ? listing.images.filter((image) => typeof image === 'string' && image.trim())
+        : [];
+    const primaryImage = listingImages[0] || '';
     const nightlyPrice =
         listing && typeof listing.price === 'number'
             ? listing.price
@@ -269,16 +272,25 @@ const ListingDetailsPage = () => {
                             </p>
                         </div>
 
-                        <div className="aspect-[16/9] w-full overflow-hidden rounded-2xl bg-gray-100">
-                            {primaryImage ? (
-                                <img
-                                    src={primaryImage}
-                                    alt={listing.title}
-                                    className="h-full w-full object-cover"
-                                />
-                            ) : (
-                                <div className="flex h-full w-full items-center justify-center text-sm text-gray-400">
-                                    No image available
+                        <div className={`listing-gallery${listingImages.length > 1 ? ' listing-gallery--with-alternatives' : ''}`}>
+                            <div className="listing-gallery__primary">
+                                {primaryImage ? (
+                                    <img src={primaryImage} alt={`${listing.title} - main view`} />
+                                ) : (
+                                    <div className="listing-gallery__empty">No image available</div>
+                                )}
+                            </div>
+
+                            {listingImages.length > 1 && (
+                                <div className="listing-gallery__alternatives">
+                                    {listingImages.slice(1, 5).map((image, index) => (
+                                        <div className="listing-gallery__alternative" key={`${image}-${index}`}>
+                                            <img
+                                                src={image}
+                                                alt={`${listing.title} - view ${index + 2}`}
+                                            />
+                                        </div>
+                                    ))}
                                 </div>
                             )}
                         </div>
