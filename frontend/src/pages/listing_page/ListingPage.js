@@ -3,8 +3,9 @@ import { useSearchParams, Link } from 'react-router-dom';
 import Header from '../../components/Header';
 import Footer from '../../components/Footer';
 import Showcase from '../../components/Showcase';
+import API_BASE_URL from '../../config/api';
 
-const BASE_API_URL = 'http://localhost:5000/api/accommodations';
+const BASE_API_URL = `${API_BASE_URL}/accommodations`;
 
 const ListingPage = () => {
     // Capture the active location query parameter from the URL.

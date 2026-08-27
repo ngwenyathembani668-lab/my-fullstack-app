@@ -8,6 +8,7 @@ import Footer from '../../components/Footer';
 import { useAuth } from '../../context/AuthContext';
 import { useModal } from '../../context/ModalContext';
 import { useToast } from '../../context/ToastContext';
+import API_BASE_URL from '../../config/api';
 import { GrHomeRounded } from "react-icons/gr";
 import { MdOutlineCleaningServices } from "react-icons/md";
 import { BsDoorClosed } from "react-icons/bs";
@@ -23,7 +24,7 @@ import { FaKitchenSet } from "react-icons/fa6";
 import { BiSolidDryer } from "react-icons/bi";
 import { LiaBicycleSolid } from "react-icons/lia";
 
-const BASE_API_URL = 'http://localhost:5000/api/accommodations';
+const BASE_API_URL = `${API_BASE_URL}/accommodations`;
 
 // ----- Date & currency helpers (booking engine) -----
 const startOfDay = (date) =>
@@ -209,7 +210,7 @@ const ListingDetailsPage = () => {
         }
         setReserving(true);
         try {
-            const res = await fetch('http://localhost:5000/api/reservations', {
+            const res = await fetch(`${API_BASE_URL}/reservations`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

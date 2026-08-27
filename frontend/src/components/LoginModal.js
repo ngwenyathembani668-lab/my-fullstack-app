@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import { useAuth } from '../context/AuthContext';
 import { useModal } from '../context/ModalContext';
 import { useToast } from '../context/ToastContext';
+import API_BASE_URL from '../config/api';
 
 const inputCls =
   'w-full rounded-lg border border-gray-300 px-3 py-2 text-sm focus:border-rose-500 focus:outline-none focus:ring-1 focus:ring-rose-500';
@@ -37,7 +38,7 @@ const LoginModal = () => {
     if (!validate()) return;
     setLoading(true);
     try {
-      const url = 'http://localhost:5000/api/auth/' + (isRegister ? 'register' : 'login');
+      const url = `${API_BASE_URL}/auth/${isRegister ? 'register' : 'login'}`;
       const body = isRegister
         ? { name: form.name.trim(), email: form.email.trim(), password: form.password }
         : { email: form.email.trim(), password: form.password };

@@ -4,6 +4,7 @@ import Header from '../../components/Header';
 import Footer from '../../components/Footer';
 import { useAuth } from '../../context/AuthContext';
 import { useToast } from '../../context/ToastContext';
+import API_BASE_URL from '../../config/api';
 
 const inputCls = 'w-full rounded-lg border border-gray-300 px-3 py-2 text-sm focus:border-rose-500 focus:outline-none focus:ring-1 focus:ring-rose-500';
 
@@ -32,7 +33,7 @@ const BecomeAHost = () => {
     if (!validate()) return;
     setLoading(true);
     try {
-      const res = await fetch('http://localhost:5000/api/auth/become-a-host', {
+      const res = await fetch(`${API_BASE_URL}/auth/become-a-host`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json', Authorization: 'Bearer ' + token },
         body: JSON.stringify({ email: form.email.trim(), password: form.password }),

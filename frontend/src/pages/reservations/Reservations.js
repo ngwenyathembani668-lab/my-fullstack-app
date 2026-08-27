@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Header from '../../components/Header';
 import Footer from '../../components/Footer';
 import { useAuth } from '../../context/AuthContext';
+import API_BASE_URL from '../../config/api';
 
 const Reservations = () => {
   const { token } = useAuth();
@@ -15,7 +16,7 @@ const Reservations = () => {
       try {
         setLoading(true);
         setError(null);
-        const res = await fetch('http://localhost:5000/api/reservations/user', {
+        const res = await fetch(`${API_BASE_URL}/reservations/user`, {
           headers: { Authorization: 'Bearer ' + token },
         });
         const data = await res.json();
